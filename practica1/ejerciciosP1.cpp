@@ -1,6 +1,8 @@
 
 #include <vector>
 #include <iostream>
+#include <algorithm>
+#include <math.h>
 
 void imprimirNumeroPorPantalla()
 {
@@ -344,42 +346,251 @@ void maximoYMinimoDeLista()
 
     } while (pedirNumeros);
 
-    if(numerosReales.size()>=2){
+    if (numerosReales.size() >= 2)
+    {
 
-        if(esMayor(numerosReales[0],numerosReales[1])){
-            maximo=numerosReales[0];
-            posMaximo=0;
-            minimo=numerosReales[1];
-            posMinimo=1;
+        if (esMayor(numerosReales[0], numerosReales[1]))
+        {
+            maximo = numerosReales[0];
+            posMaximo = 0;
+            minimo = numerosReales[1];
+            posMinimo = 1;
         }
         else
         {
-            maximo=numerosReales[1];
-            posMaximo=1;
-            minimo=numerosReales[0];
-            posMinimo=0;
+            maximo = numerosReales[1];
+            posMaximo = 1;
+            minimo = numerosReales[0];
+            posMinimo = 0;
         }
-        if (numerosReales.size()>2)
+        if (numerosReales.size() > 2)
         {
-            for (int i = 3; i < numerosReales.size(); i++) {
+            for (int i = 3; i < numerosReales.size(); i++)
+            {
 
-                if(esMayor(numerosReales[i],maximo)){
-                    maximo=numerosReales[i];
-                    posMaximo=i;
+                if (esMayor(numerosReales[i], maximo))
+                {
+                    maximo = numerosReales[i];
+                    posMaximo = i;
                 }
-                if(esMenor(numerosReales[i],minimo)){
-                    minimo=numerosReales[i];
-                    posMinimo=i;
+                if (esMenor(numerosReales[i], minimo))
+                {
+                    minimo = numerosReales[i];
+                    posMinimo = i;
                 }
-
-              }
+            }
         }
-        
-
     }
 
     std::cout << "El numero mayor es " << maximo << " ubicado en la posición " << posMaximo << " y el minimo es " << minimo << " ubicado en la posicion " << posMinimo << std::endl;
-    
+}
+
+void cuantosXhay()
+{
+    std::vector<int> numeros = {1, 1, 4, 1, 2, 3, 4, 2, 100, 0, 1};
+    int contador = 0;
+    int numeroAcontar;
+
+    std::cout << "Por favor ingrese el numero el cual quiere saber cuantas veces esta en el vector: ";
+    std::cin >> numeroAcontar;
+
+    for (int i = 0; i < numeros.size(); i++)
+    {
+        if (numeros[i] == numeroAcontar)
+        {
+            contador++;
+        }
+    }
+    std::cout << "El número " << numeroAcontar << " aparece " << contador << " veces." << std::endl;
+}
+
+void aMultiplicadoPorB()
+{
+    int numero1;
+    int numero2;
+    int absolutoNumero2;
+    int c;
+
+    std::cout << "Por favor, ingrese un número: ";
+    std::cin >> numero1;
+
+    std::cout << "Por favor, ingrese otro número para poder multiplicarlo por " << numero1 << ": ";
+    std::cin >> numero2;
+
+    absolutoNumero2 = (numero2 < 0) ? -numero2 : numero2;
+
+    for (int i = 0; i < absolutoNumero2; i++)
+    {
+        c += numero1;
+    }
+
+    if (numero2 < 0)
+    {
+        c = -c;
+    }
+
+    std::cout << "La multiplicación de los dos números da: " << c << std::endl;
+}
+
+void imprimirTresMayores()
+{
+    std::vector<int> numeros = {10, 30, 20, 10, 50, 40, 100, 90};
+    int mayor1 = 0, mayor2 = 0, mayor3 = 0;
+
+    for (int numero : numeros)
+    {
+        if (numero > mayor1)
+        {
+            mayor3 = mayor2;
+            mayor2 = mayor1;
+            mayor1 = numero;
+        }
+        else if (numero > mayor2)
+        {
+            mayor3 = mayor2;
+            mayor2 = numero;
+        }
+        else if (numero > mayor3)
+        {
+            mayor3 = numero;
+        }
+    }
+
+    std::cout << "Los tres mayores números son: ";
+    std::cout << mayor1 << ", " << mayor2 << " y " << mayor3 << std::endl;
+
+    // otra opcion seria ordenar de mayor a menor el vector y elegir los tres primeros numeros
+}
+
+// creo clase persona para el ejercicio 20
+
+class Persona
+{
+private:
+    std::string nombre;
+    int salario;
+
+public:
+    // Constructor
+    Persona(std::string _nombre, int _salario)
+    {
+        nombre = _nombre;
+        salario = _salario;
+    }
+
+    // constructor por defecto
+    Persona()
+    {
+        nombre = "";
+        salario = 0;
+    }
+
+    // Mostrar datos
+    void mostrar() const
+    {
+        std::cout << "Nombre: " << nombre << " - Salario: " << salario << std::endl;
+    }
+
+    /*
+        de esta manera devuelvo la info, no imprimo directamente
+        std::string toString() const {
+        return "Nombre: " + nombre + " - Salario: " + std::to_string(salario);
+}
+    */
+
+    // getter
+    std::string getNombre() const { return nombre; }
+    int getSalario() const { return salario; }
+};
+
+void sueldoMaximoYMinimo()
+{
+    Persona p1("Aldana", 100);
+    Persona p2("Micaela", 300);
+    Persona p3("Francisco", 5300);
+    Persona p4("Joaquin", 500);
+
+    std::vector<Persona> trabajadores = {p1, p2, p3, p4};
+
+    Persona personaSueldoMaximo = trabajadores[0];
+    Persona personaSueldoMinimo = trabajadores[0];
+
+    for (int i = 1; i < trabajadores.size(); i++)
+    {
+        if (trabajadores[i].getSalario() > personaSueldoMaximo.getSalario())
+        {
+            personaSueldoMaximo = trabajadores[i];
+        }
+        if (trabajadores[i].getSalario() < personaSueldoMinimo.getSalario())
+        {
+            personaSueldoMinimo = trabajadores[i];
+        }
+    }
+
+    std::cout << "La persona con el salario más alto es: " << std::endl;
+    personaSueldoMaximo.mostrar();
+
+    std::cout << "La persona con el salario más bajo es: " << std::endl;
+    personaSueldoMinimo.mostrar();
+}
+
+void definirOrdenVector(std::vector<int> numeros)
+{
+    std::vector<int> numerosOrdenadosAsc = numeros;
+    std::sort(numerosOrdenadosAsc.begin(), numerosOrdenadosAsc.end());
+    std::vector<int> numerosOrdenadosDesc = numeros;
+    std::sort(numerosOrdenadosDesc.begin(), numerosOrdenadosDesc.end(), std::greater<int>());
+
+    if (numeros == numerosOrdenadosAsc)
+    {
+        std::cout << "El vector esta ordenado de forma ascendente" << std::endl;
+    }
+    else if (numeros == numerosOrdenadosDesc)
+    {
+        std::cout << "El vector esta ordenado de forma descendente" << std::endl;
+    }
+    else
+    {
+        std::cout << "El vector esta desordenado" << std::endl;
+    }
+
+    imprimirVector(numeros);
+
+    // de esta forma puedo imprimir el bool
+    // std::cout << std::boolalpha << (numeros == numerosOrdenadosDesc) << std::endl;
+}
+
+int calcularDiscriminante(int a, int b, int c)
+{
+    int discriminante;
+    discriminante = pow(b, 2) - (4 * a * c);
+    return discriminante;
+}
+
+bool elPolinomioTieneRaices()
+{
+    int a;
+    int b;
+    int c;
+    int discriminante;
+    bool tieneRaiz = false;
+
+    std::cout << "Por favor ingresar el primer valor del polinomio ";
+    std::cin >> a;
+
+    std::cout << "Por favor ingresar el segundo valor del polinomio ";
+    std::cin >> b;
+
+    std::cout << "Por favor ingresar el tercer valor del polinomio ";
+    std::cin >> c;
+
+    discriminante = calcularDiscriminante(a, b, c);
+    if (discriminante >= 0)
+    {
+        tieneRaiz = true;
+    }
+
+    return tieneRaiz;
 }
 
 // ---------------------- main --------------------
@@ -452,12 +663,33 @@ int main()
 
     maximoYMinimoDeLista(); */
 
-    std::cout << "17) Leer un valor N y luego N números enteros. Se pide imprimir el mayor y el menor y las veces que aparece cada uno. " << std::endl;
+    /* std::cout << "17) Leer un valor N y luego N números enteros. Se pide imprimir el mayor y el menor y las veces que aparece cada uno. " << std::endl;
 
+    cuantosXhay();*/
 
+    /* std::cout << "18) Leer A y B, enteros. Calcular C = A x B mediante sumas sucesivas e imprimir el resultado. " << std::endl;
 
+    aMultiplicadoPorB(); */
 
+    /* std::cout << "19) Dada una serie de números enteros terminada en cero, imprimir los tres mayores. " << std::endl;
 
+    imprimirTresMayores(); */
+
+    /* std::cout << "20) Dada una serie de nombres con sus salarios respectivos, determinar el salario máximo, el mínimo y la persona que percibe cada uno. " << std::endl;
+
+    sueldoMaximoYMinimo(); */
+
+    /* std::cout << "21) Escribir un algoritmo que lea una serie de números reales y verifique si están ordenados en forma ascendente, descendente o si no están ordenados, informando por pantalla. " << std::endl;
+
+    definirOrdenVector({1, 2, 3, 4});
+    definirOrdenVector({10, 9, 8, 7});
+    definirOrdenVector({2, 1, 7, 3, 3}); */
+
+    std::cout << "23) Leer N y luego N lotes de números reales que terminan con un valor 0, y calcular la media individual de cada lote, junto con la media total de todos los números ingresados. " << std::endl;
+
+    /* std::cout << "24) Hacer una función que, dado los coeficientes de un polinomio de segundo grado (3 números reales), indique si tiene o no raíces reales, devolviendo un valor booleano. " << std::endl;
+
+    std::cout << std::boolalpha << elPolinomioTieneRaices() << std::endl; */
 
     return 0;
 }

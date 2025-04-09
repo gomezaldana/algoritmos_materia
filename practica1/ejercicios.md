@@ -112,4 +112,4 @@ e. Quitar un producto que esté en el vector.
 f. Indicar la cantidad de productos en oferta. 
 g. Cargar productos de Gondola en un nuevo vector Chango, indicando 
 luego: monto a abonar y ahorro total teniendo en cuenta los productos 
-en oferta. 
+en oferta.
