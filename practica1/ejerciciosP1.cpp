@@ -290,12 +290,12 @@ void imprimirYSumarNumeros()
 
 void imprimirVector(const std::vector<int> &vector)
 {
-    std::cout << "Lista: ";
+    std::cout << "[ ";
     for (int numero : vector)
     {
         std::cout << numero << " ";
     }
-    std::cout << std::endl;
+    std::cout << "]" << std::endl;
 }
 
 bool esMayor(int a, int b)
@@ -593,6 +593,189 @@ bool elPolinomioTieneRaices()
     return tieneRaiz;
 }
 
+void raizDelPolinomio()
+{
+    int a;
+    int b;
+    int c;
+
+    std::cout << "Por favor ingresar el primer valor del polinomio ";
+    std::cin >> a;
+
+    std::cout << "Por favor ingresar el segundo valor del polinomio ";
+    std::cin >> b;
+
+    std::cout << "Por favor ingresar el tercer valor del polinomio ";
+    std::cin >> c;
+
+    bool tieneRaiz = elPolinomioTieneRaices();
+
+    std::cout << calcularDiscriminante(a, b, c) << std::endl;
+    std::cout << std::boolalpha << tieneRaiz << std::endl;
+}
+
+bool esPrimo()
+{
+    int numeroAVerificar;
+    bool esPrimo = true;
+
+    std::cout << "Por favor ingresar el número que desea verificar si es primo: ";
+    std::cin >> numeroAVerificar;
+
+    if (numeroAVerificar <= 1)
+    {
+        esPrimo = false;
+    }
+    else
+    {
+        for (int i = 2; i < numeroAVerificar && esPrimo; i++)
+        {
+            if (numeroAVerificar % i == 0)
+            {
+                esPrimo = false;
+            }
+        }
+    }
+
+    if (esPrimo)
+    {
+        std::cout << "El número " << numeroAVerificar << " es primo." << std::endl;
+        return esPrimo;
+    }
+    else
+    {
+        std::cout << "El número " << numeroAVerificar << " no es primo." << std::endl;
+        return esPrimo;
+    }
+}
+
+bool esPrimoPorParametro(int numeroAVerificar)
+{
+    bool esPrimo = true;
+
+    if (numeroAVerificar <= 1)
+    {
+        esPrimo = false;
+    }
+    else
+    {
+        for (int i = 2; i < numeroAVerificar && esPrimo; i++)
+        {
+            if (numeroAVerificar % i == 0)
+            {
+                esPrimo = false;
+            }
+        }
+    }
+    return esPrimo;
+}
+
+void vectorConPrimos()
+{
+    std::vector<int> primos = {};
+
+    for (int i = 2; i < 201; i++)
+    {
+        if (esPrimoPorParametro(i))
+        {
+            primos.push_back(i);
+        }
+    }
+
+    imprimirVector(primos);
+}
+
+int productoVector(std::vector<int> vectorA, std::vector<int> vectorB)
+{
+    int suma = 0;
+    for (int i = 0; i < vectorA.size(); i++)
+    {
+        int aux = vectorA[i];
+        aux *= vectorB[i];
+        suma += aux;
+    }
+    return suma;
+}
+
+std::vector<int> sumaVector(std::vector<int> vectorA, std::vector<int> vectorB)
+{
+    std::vector<int> suma = {};
+
+    for (int i = 0; i < vectorA.size(); i++)
+    {
+        int aux = vectorA[i];
+        aux += vectorB[i];
+        suma.push_back(aux);
+    }
+
+    return suma;
+}
+
+void operacionesConVectores(std::vector<int> vectorA, std::vector<int> vectorB)
+{
+    std::vector<int> suma = sumaVector(vectorA, vectorB);
+    int producto = productoVector(vectorA, vectorB);
+
+    std::cout << "El producto escalar es " << producto << " y el vector suma es ";
+    imprimirVector(suma);
+}
+
+void vectorSinRepetidos(std::vector<int> vector)
+{
+
+    std::vector<int> sinRepetidos = {};
+    int tamanioVector = vector.size();
+
+    for (int i = 0; i < tamanioVector; i++)
+    {
+        bool estaEnElVector = false;
+
+        for (int j = 0; j < sinRepetidos.size(); j++)
+        {
+            if (sinRepetidos[j] == vector[i])
+            {
+                estaEnElVector = true;
+            }
+        }
+
+        if (!estaEnElVector)
+        {
+            sinRepetidos.push_back(vector[i]);
+        }
+    }
+
+    imprimirVector(sinRepetidos);
+}
+
+
+
+void interseccionYUnionDeDosVectores(){
+
+}
+
+// creo persona con struct
+struct Persona2 {
+    std::string nombre;
+    int telefono;
+};
+
+Persona2 generarPersona(){
+    Persona2 persona;
+    std:: string nombre;
+    int telefono;
+    std::cout << "Por favor ingrese el nombre de la persona: ";
+    std::cin >> nombre;
+    std::cout << "Por favor ingrese el número telefónico de la persona: ";
+    std::cin >> telefono;
+
+    persona.telefono=telefono;
+    persona.nombre=nombre;
+
+    std:: cout << "[ " << persona.nombre << " | Teléfono: " << persona.telefono << " ]" << std::endl;;
+    return persona;
+
+}
+
 // ---------------------- main --------------------
 int main()
 {
@@ -690,6 +873,65 @@ int main()
     /* std::cout << "24) Hacer una función que, dado los coeficientes de un polinomio de segundo grado (3 números reales), indique si tiene o no raíces reales, devolviendo un valor booleano. " << std::endl;
 
     std::cout << std::boolalpha << elPolinomioTieneRaices() << std::endl; */
+
+    /* std::cout << "25) Hacer una función que devuelva las raíces reales de un polinomio de segundo grado y además indique si tiene o no raíces reales. Nota: utilizar la función realizada en el ejercicio 39. Si no tuviera raíces reales, devolverá 0 en ambas. " << std::endl;
+
+    raizDelPolinomio(); */
+
+    std::cout << "26) Hacer un programa principal en donde se pida al usuario ingresar los coeficientes de la cuadrática, e indicar si tiene o no raíces, y cuáles son en caso de tener, utilizando la función definida. " << std::endl;
+
+    /* std::cout << "27) Hacer una función que indique si un número es primo o no.  " << std::endl;
+
+    esPrimo(); */
+
+    std::cout << "28) Escribir una función que devuelva el máximo común divisor y el mínimo común múltiplo entre dos enteros. Nota: cuidado al modularizar (recordar que una función solo tiene que realizar una tarea).  " << std::endl;
+
+    // ------------------------------------ Vectores ----------------------------------------------------------------
+
+    /* std:: cout << "29) Desarrollar una función que devuelva en un vector los números primos entre 2 y 200. Reutilizar lo que ya se escribió y probó. " << std:: endl;
+
+    vectorConPrimos(); */
+
+    /* std::cout << "30) Dados dos vectores A y B, de N elementos cada uno, se desean calcular: a. El vector suma. b. El producto escalar. " << std::endl;
+
+    operacionesConVectores({3, 4}, {1, 2}); */
+
+    std::cout << "31) Por cada alumno que rindió un examen de inglés se lee el número de padrón, y la nota obtenida. Se desea saber la cantidad de alumnos que rindieron el examen y el porcentaje de alumnos que obtuvieron cada nota. " << std::endl;
+
+    /* std::cout << "32) Se carga un vector X de N elementos enteros. Escribir un algoritmo que devuelva un vector que tenga todos los elementos de X, pero sin elementos repetidos. " << std::endl;
+
+    vectorSinRepetidos({1, 2, 2, 3, 4, 4, 5, 1}); */
+
+    std::cout << "33) Se leen dos vectores A y B, de N y M elementos respectivamente. Construir un algoritmo que halle los vectores unión e intersección de A y B. Previamente habrá que ordenarlos. "<< std::endl;
+
+    interseccionYUnionDeDosVectores();
+
+    std::cout << " 34) Si los números de un vector representan los coeficientes de un polinomio (de grado no mayor a 10), escribir un algoritmo que calcule la especialización de ese polinomio con un número que elige el usuario. "<< std::endl;
+
+    std::cout << "35) Escribir un algoritmo que halle una matriz C como suma de dos matrices A y B. La dimensión de las matrices de M × N se lee como dato (suponer un MAX para fila y columna). "<< std::endl;
+    std::cout << "36) Escribir un algoritmo que halle un vector cuyos elementos son la suma de los elementos de cada fila de una matriz previamente ingresada. "<< std::endl;
+    std::cout << "37) Escribir un programa que calcule la traza de una matriz cuadrada. Recordar que la traza de una matriz es la suma de los elementos de su diagonal principal. "<< std::endl;
+    std::cout << "38) Escribir un algoritmo que determine si una matriz cuadrada ingresada es la matriz identidad. Optimizar el código. "<< std::endl;
+    std::cout << "39) Escribir un algoritmo que construya un vector con los valores mínimos de cada una de las filas de una matriz. "<< std::endl;
+    
+    //-------------------------------------Registros y Tablas--------------------------------
+    
+    /* std::cout << "40) Definir un struct Persona, donde se pueda almacenar su nombre, y el número de teléfono. "<< std::endl;
+    generarPersona(); */
+
+    std::cout << "41) Definir un vector Agenda, en donde se pueda guardar los datos de, a lo sumo, 50 personas (definidas en el ej. anterior) y permita: a. Cargar los datos en la Agenda. b. Poder buscar el teléfono de una persona indicando su nombre. c. Poder buscar el nombre de una persona indicando su teléfono. d. Poder modificar el número de teléfono de alguna persona. e. Poder agregar un nuevo contacto. f. Poder dar de baja a un contacto. "<< std::endl;
+    
+    std::cout << ""<< std::endl;
+    std::cout << ""<< std::endl;
+
+
+
+
+
+
+
+
+
 
     return 0;
 }
