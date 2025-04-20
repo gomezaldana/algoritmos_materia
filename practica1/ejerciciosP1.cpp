@@ -614,6 +614,68 @@ void raizDelPolinomio()
     std::cout << std::boolalpha << tieneRaiz << std::endl;
 }
 
+void raicesDeCuadratica()
+{
+    int a;
+    int b;
+    int c;
+    int discriminante;
+    bool tieneRaices = false;
+
+    std::cout << "Por favor ingresar el primer coeficiente ";
+    std::cin >> a;
+
+    std::cout << "Por favor ingresar el segundo coeficiente ";
+    std::cin >> b;
+
+    std::cout << "Por favor ingresar el tercer coeficiente ";
+    std::cin >> c;
+
+    discriminante = calcularDiscriminante(a, b, c);
+
+    if (discriminante > 0)
+    {
+        double x1 = (-b + sqrt(discriminante)) / (2 * a);
+        double x2 = (-b - sqrt(discriminante)) / (2 * a);
+        std::cout << "Tiene dos raíces reales distintas: x1 = " << x1 << ", x2 = " << x2 << std::endl;
+    }
+    else if (discriminante == 0)
+    {
+        double x = -b / (2 * a);
+        std::cout << "Tiene una raíz real doble: x = " << x << std::endl;
+    }
+    else
+    {
+        std::cout << "No tiene raíces reales." << std::endl;
+    }
+}
+
+int maximoComunDivisor(int numero1, int numero2)
+{
+    int aux = numero2;
+
+    while (numero2 != 0)
+    {
+        aux = numero2;
+        numero2 = numero1 % numero2;
+        numero1 = aux;
+    }
+
+    return numero1;
+}
+
+int minimoComunMultiplo(int numero1, int numero2)
+{
+    return abs(numero1 * numero2) / maximoComunDivisor(numero1, numero2);
+}
+
+void mcdYmcmEntreDosNumeros(int numero1, int numero2)
+{
+    int mcd = maximoComunDivisor(numero1, numero2);
+    int mcm = minimoComunMultiplo(numero1, numero2);
+    std::cout << "El máximo común divisor entre: " << numero1 << " y " << numero2 << " es: " << mcd << " y el minimo común múltiplo es: " << mcm << std::endl;
+}
+
 bool esPrimo()
 {
     int numeroAVerificar;
@@ -753,18 +815,16 @@ void interseccionYUnionDeDosVectores()
 
 void tablaCelsiusFahrenheit()
 {
-    int fahrenheit= 0;
-    double celsius= 0;
+    int fahrenheit = 0;
+    double celsius = 0;
 
     std::cout << "celsius" << " | " << "fahrenheit" << std::endl;
     std::cout << "--------------------------" << std::endl;
-    for (fahrenheit; fahrenheit < 200; fahrenheit+=10)
+    for (fahrenheit; fahrenheit < 200; fahrenheit += 10)
     {
         celsius = 5.0 / 9.0 * (fahrenheit - 32);
-        std::cout << celsius << " | " <<fahrenheit << std::endl;
-
+        std::cout << celsius << " | " << fahrenheit << std::endl;
     }
-    
 }
 
 // creo persona con struct
@@ -898,13 +958,17 @@ int main()
 
     raizDelPolinomio(); */
 
-    std::cout << "26) Hacer un programa principal en donde se pida al usuario ingresar los coeficientes de la cuadrática, e indicar si tiene o no raíces, y cuáles son en caso de tener, utilizando la función definida. " << std::endl;
+    /* std::cout << "26) Hacer un programa principal en donde se pida al usuario ingresar los coeficientes de la cuadrática, e indicar si tiene o no raíces, y cuáles son en caso de tener, utilizando la función definida. " << std::endl;
+
+    raicesDeCuadratica(); */
 
     /* std::cout << "27) Hacer una función que indique si un número es primo o no.  " << std::endl;
 
     esPrimo(); */
 
     std::cout << "28) Escribir una función que devuelva el máximo común divisor y el mínimo común múltiplo entre dos enteros. Nota: cuidado al modularizar (recordar que una función solo tiene que realizar una tarea).  " << std::endl;
+
+    mcdYmcmEntreDosNumeros(10,12);
 
     // ------------------------------------ Vectores ----------------------------------------------------------------
 
