@@ -747,33 +747,49 @@ void vectorSinRepetidos(std::vector<int> vector)
     imprimirVector(sinRepetidos);
 }
 
+void interseccionYUnionDeDosVectores()
+{
+}
 
+void tablaCelsiusFahrenheit()
+{
+    int fahrenheit= 0;
+    double celsius= 0;
 
-void interseccionYUnionDeDosVectores(){
+    std::cout << "celsius" << " | " << "fahrenheit" << std::endl;
+    std::cout << "--------------------------" << std::endl;
+    for (fahrenheit; fahrenheit < 200; fahrenheit+=10)
+    {
+        celsius = 5.0 / 9.0 * (fahrenheit - 32);
+        std::cout << celsius << " | " <<fahrenheit << std::endl;
 
+    }
+    
 }
 
 // creo persona con struct
-struct Persona2 {
+struct Persona2
+{
     std::string nombre;
     int telefono;
 };
 
-Persona2 generarPersona(){
+Persona2 generarPersona()
+{
     Persona2 persona;
-    std:: string nombre;
+    std::string nombre;
     int telefono;
     std::cout << "Por favor ingrese el nombre de la persona: ";
     std::cin >> nombre;
     std::cout << "Por favor ingrese el número telefónico de la persona: ";
     std::cin >> telefono;
 
-    persona.telefono=telefono;
-    persona.nombre=nombre;
+    persona.telefono = telefono;
+    persona.nombre = nombre;
 
-    std:: cout << "[ " << persona.nombre << " | Teléfono: " << persona.telefono << " ]" << std::endl;;
+    std::cout << "[ " << persona.nombre << " | Teléfono: " << persona.telefono << " ]" << std::endl;
+    ;
     return persona;
-
 }
 
 // ---------------------- main --------------------
@@ -868,6 +884,10 @@ int main()
     definirOrdenVector({10, 9, 8, 7});
     definirOrdenVector({2, 1, 7, 3, 3}); */
 
+    /* std::cout << "22) La relación entre temperaturas Celsius y Fahrenheit está dada por: C = 5/9 * (F – 32). Escribir un algoritmo que haga una tabla de valores Celsius-Fahrenheit, para valores entre OºF y 200ºF, a intervalos de 10º.  " << std::endl;
+
+    tablaCelsiusFahrenheit(); */
+
     std::cout << "23) Leer N y luego N lotes de números reales que terminan con un valor 0, y calcular la media individual de cada lote, junto con la media total de todos los números ingresados. " << std::endl;
 
     /* std::cout << "24) Hacer una función que, dado los coeficientes de un polinomio de segundo grado (3 números reales), indique si tiene o no raíces reales, devolviendo un valor booleano. " << std::endl;
@@ -902,36 +922,27 @@ int main()
 
     vectorSinRepetidos({1, 2, 2, 3, 4, 4, 5, 1}); */
 
-    std::cout << "33) Se leen dos vectores A y B, de N y M elementos respectivamente. Construir un algoritmo que halle los vectores unión e intersección de A y B. Previamente habrá que ordenarlos. "<< std::endl;
+    std::cout << "33) Se leen dos vectores A y B, de N y M elementos respectivamente. Construir un algoritmo que halle los vectores unión e intersección de A y B. Previamente habrá que ordenarlos. " << std::endl;
 
     interseccionYUnionDeDosVectores();
 
-    std::cout << " 34) Si los números de un vector representan los coeficientes de un polinomio (de grado no mayor a 10), escribir un algoritmo que calcule la especialización de ese polinomio con un número que elige el usuario. "<< std::endl;
+    std::cout << " 34) Si los números de un vector representan los coeficientes de un polinomio (de grado no mayor a 10), escribir un algoritmo que calcule la especialización de ese polinomio con un número que elige el usuario. " << std::endl;
 
-    std::cout << "35) Escribir un algoritmo que halle una matriz C como suma de dos matrices A y B. La dimensión de las matrices de M × N se lee como dato (suponer un MAX para fila y columna). "<< std::endl;
-    std::cout << "36) Escribir un algoritmo que halle un vector cuyos elementos son la suma de los elementos de cada fila de una matriz previamente ingresada. "<< std::endl;
-    std::cout << "37) Escribir un programa que calcule la traza de una matriz cuadrada. Recordar que la traza de una matriz es la suma de los elementos de su diagonal principal. "<< std::endl;
-    std::cout << "38) Escribir un algoritmo que determine si una matriz cuadrada ingresada es la matriz identidad. Optimizar el código. "<< std::endl;
-    std::cout << "39) Escribir un algoritmo que construya un vector con los valores mínimos de cada una de las filas de una matriz. "<< std::endl;
-    
+    std::cout << "35) Escribir un algoritmo que halle una matriz C como suma de dos matrices A y B. La dimensión de las matrices de M × N se lee como dato (suponer un MAX para fila y columna). " << std::endl;
+    std::cout << "36) Escribir un algoritmo que halle un vector cuyos elementos son la suma de los elementos de cada fila de una matriz previamente ingresada. " << std::endl;
+    std::cout << "37) Escribir un programa que calcule la traza de una matriz cuadrada. Recordar que la traza de una matriz es la suma de los elementos de su diagonal principal. " << std::endl;
+    std::cout << "38) Escribir un algoritmo que determine si una matriz cuadrada ingresada es la matriz identidad. Optimizar el código. " << std::endl;
+    std::cout << "39) Escribir un algoritmo que construya un vector con los valores mínimos de cada una de las filas de una matriz. " << std::endl;
+
     //-------------------------------------Registros y Tablas--------------------------------
-    
+
     /* std::cout << "40) Definir un struct Persona, donde se pueda almacenar su nombre, y el número de teléfono. "<< std::endl;
     generarPersona(); */
 
-    std::cout << "41) Definir un vector Agenda, en donde se pueda guardar los datos de, a lo sumo, 50 personas (definidas en el ej. anterior) y permita: a. Cargar los datos en la Agenda. b. Poder buscar el teléfono de una persona indicando su nombre. c. Poder buscar el nombre de una persona indicando su teléfono. d. Poder modificar el número de teléfono de alguna persona. e. Poder agregar un nuevo contacto. f. Poder dar de baja a un contacto. "<< std::endl;
-    
-    std::cout << ""<< std::endl;
-    std::cout << ""<< std::endl;
+    std::cout << "41) Definir un vector Agenda, en donde se pueda guardar los datos de, a lo sumo, 50 personas (definidas en el ej. anterior) y permita: a. Cargar los datos en la Agenda. b. Poder buscar el teléfono de una persona indicando su nombre. c. Poder buscar el nombre de una persona indicando su teléfono. d. Poder modificar el número de teléfono de alguna persona. e. Poder agregar un nuevo contacto. f. Poder dar de baja a un contacto. " << std::endl;
 
-
-
-
-
-
-
-
-
+    std::cout << "" << std::endl;
+    std::cout << "" << std::endl;
 
     return 0;
 }
