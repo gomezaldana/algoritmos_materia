@@ -3,6 +3,7 @@
 #include <iostream>
 #include <algorithm>
 #include <math.h>
+#include <cctype>
 
 void imprimirNumeroPorPantalla()
 {
@@ -54,6 +55,15 @@ void saludarPersona()
 
 void superficieYVolumenDeRadio()
 {
+    double radio;
+    std::cout << "Ingrese el radio de la esfera: ";
+    std::cin >> radio;
+
+    double superficie = 4 * M_PI * pow(radio, 2);
+    double volumen = (4.0 / 3.0) * M_PI * pow(radio, 3);
+
+    std::cout << "Superficie de la esfera: " << superficie << std::endl;
+    std::cout << "Volumen de la esfera: " << volumen << std::endl;
 }
 
 void calcularPerimetroYSuperficieRectangulo()
@@ -272,6 +282,34 @@ void factorialDe_()
         factorial = factorial * i;
     }
     std::cout << "El fatorial de " << numero << " es " << factorial << std::endl;
+}
+
+void especializacionDePolinomio()
+{
+    int MAX_GRADO = 10;
+    int grado;
+    double coeficientes[MAX_GRADO + 1];
+    double x, resultado = 0;
+
+    std::cout << "Ingrese el grado del polinomio (max 10): ";
+    std::cin >> grado;
+
+    std::cout << "Ingrese los coeficientes desde el término de grado 0 hasta grado " << grado << ":\n";
+    for (int i = 0; i <= grado; i++)
+    {
+        std::cout << "Coeficiente de grado " << i << ": ";
+        std::cin >> coeficientes[i];
+    }
+
+    std::cout << "Ingrese el valor de x: ";
+    std::cin >> x;
+
+    for (int i = 0; i <= grado; i++)
+    {
+        resultado += coeficientes[i] * pow(x, i);
+    }
+
+    std::cout << "Resultado del polinomio para x = " << x << " es: " << resultado << std::endl;
 }
 
 void imprimirYSumarNumeros()
@@ -669,6 +707,36 @@ int minimoComunMultiplo(int numero1, int numero2)
     return abs(numero1 * numero2) / maximoComunDivisor(numero1, numero2);
 }
 
+void sumaMatrizAYB()
+{
+    int MAX = 10;
+    int m, n;
+    int A[MAX][MAX], B[MAX][MAX], C[MAX][MAX];
+
+    std::cout << "Ingrese las dimensiones de las matrices (filas columnas): ";
+    std::cin >> m >> n;
+
+    std::cout << "Ingrese la matriz A:\n";
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            std::cin >> A[i][j];
+
+    std::cout << "Ingrese la matriz B:\n";
+    for (int i = 0; i < m; i++)
+        for (int j = 0; j < n; j++)
+            std::cin >> B[i][j];
+
+    std::cout << "Matriz C = A + B:\n";
+    for (int i = 0; i < m; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            C[i][j] = A[i][j] + B[i][j];
+            std::cout << C[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+}
 void mcdYmcmEntreDosNumeros(int numero1, int numero2)
 {
     int mcd = maximoComunDivisor(numero1, numero2);
@@ -809,6 +877,37 @@ void vectorSinRepetidos(std::vector<int> vector)
     imprimirVector(sinRepetidos);
 }
 
+void vectorCreadoConMinimos()
+{
+    int MAX = 2;
+    int m, n, matriz[MAX][MAX], minimos[MAX];
+
+    std::cout << "Ingrese filas y columnas: ";
+    std::cin >> m >> n;
+
+    std::cout << "Ingrese la matriz: ";
+    for (int i = 0; i < m; i++)
+    {
+        std::cin >> matriz[i][0];
+        minimos[i] = matriz[i][0];
+        for (int j = 1; j < n; j++)
+        {
+            std::cin >> matriz[i][j];
+            if (matriz[i][j] < minimos[i])
+            {
+                minimos[i] = matriz[i][j];
+            }
+        }
+    }
+
+    std::cout << "Vector con mínimos de cada fila:";
+    for (int i = 0; i < m; i++)
+    {
+        std::cout << minimos[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
 void interseccionYUnionDeDosVectores()
 {
 }
@@ -824,6 +923,69 @@ void tablaCelsiusFahrenheit()
     {
         celsius = 5.0 / 9.0 * (fahrenheit - 32);
         std::cout << celsius << " | " << fahrenheit << std::endl;
+    }
+}
+
+void trazaMatriz()
+{
+    int MAX = 10;
+    int n, matriz[MAX][MAX], traza = 0;
+
+    std::cout << "Ingrese tamaño de la matriz cuadrada: ";
+    std::cin >> n;
+
+    std::cout << "Ingrese la matriz:\n";
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            std::cin >> matriz[i][j];
+        }
+    }
+
+    for (int i = 0; i < n; i++)
+    {
+        traza += matriz[i][i];
+    }
+
+    std::cout << "La traza de la matriz es: " << traza << std::endl;
+}
+
+void esMatrizIdentidadCuadrada()
+{
+    int MAX = 2;
+    int n;
+    bool esIdentidad = true;
+    int matriz[MAX][MAX];
+
+    std::cout << "Ingrese el tamaño de la matriz cuadrada: ";
+    std::cin >> n;
+
+    std::cout << "Ingrese la matriz:";
+    for (int i = 0; i < n; i++)
+    {
+        for (int j = 0; j < n; j++)
+        {
+            std::cin >> matriz[i][j];
+        }
+    }
+
+    for (int i = 0; i < n && esIdentidad; i++)
+    {
+        for (int j = 0; j < n && esIdentidad; j++)
+        {
+            if ((i == j && matriz[i][j] != 1) || (i != j && matriz[i][j] != 0))
+                esIdentidad = false;
+        }
+    }
+
+    if (esIdentidad)
+    {
+        std::cout << "La matriz es identidad." << std::endl;
+    }
+    else
+    {
+        std::cout << "La matriz no es identidad." << std::endl;
     }
 }
 
@@ -852,6 +1014,602 @@ Persona2 generarPersona()
     return persona;
 }
 
+void agregarPersonaEnAgenda(int &contactosCargados, Persona2 agenda[])
+{
+    Persona2 personaParaAgregar;
+    std::string nombrePersona;
+    int telefonoPersona;
+
+    std::cout << "Por favor, ingrese el nombre del contacto que desea agregar: ";
+    std::cin >> nombrePersona;
+    std::cout << "Por favor, ingrese el número de teléfono del contacto que desea agregar: ";
+    std::cin >> telefonoPersona;
+
+    personaParaAgregar.nombre = nombrePersona;
+    personaParaAgregar.telefono = telefonoPersona;
+
+    if (contactosCargados > 50)
+    {
+        std::cout << "No se puede agregar otro contacto, la agenda esta llena" << std::endl;
+    }
+    else
+    {
+        agenda[contactosCargados] = personaParaAgregar;
+        std::cout << "Se cargo la persona '" << personaParaAgregar.nombre << "' a la agenda con exito" << std::endl;
+        contactosCargados++;
+    }
+}
+
+void buscarTelefonoPorNombre(Persona2 agenda[])
+{
+    std::string nombrePersonaABuscar;
+    bool seEncontroPersona = false;
+    int telefonoPersona;
+
+    std::cout << "Por favor, ingrese el nombre del contacto al que desea obtener su numero de telefono: ";
+    std::cin >> nombrePersonaABuscar;
+
+    for (int i = 0; i < 50; i++)
+    {
+        if (agenda[i].nombre == nombrePersonaABuscar)
+        {
+            seEncontroPersona = true;
+            telefonoPersona = agenda[i].telefono;
+        }
+    }
+
+    if (seEncontroPersona)
+    {
+        std::cout << "El número de la persona que deseaba encontrar es: " << telefonoPersona << std::endl;
+    }
+    else
+    {
+        std::cout << "El nombre de la persona que ingresó no se encuentra en la agenda" << std::endl;
+    }
+}
+
+void buscarNombrePorTelefono(Persona2 agenda[])
+{
+    std::string nombrePersonaAEncontrar;
+    bool seEncontroPersona = false;
+    int telefonoPersona;
+
+    std::cout << "Por favor, ingrese el teléfono del contacto al que desea obtener su nombre: ";
+    std::cin >> telefonoPersona;
+
+    for (int i = 0; i < 50; i++)
+    {
+        if (agenda[i].telefono == telefonoPersona)
+        {
+            seEncontroPersona = true;
+            nombrePersonaAEncontrar = agenda[i].nombre;
+        }
+    }
+
+    if (seEncontroPersona)
+    {
+        std::cout << "El nombre de la persona que deseaba encontrar es: " << nombrePersonaAEncontrar << std::endl;
+    }
+    else
+    {
+        std::cout << "El número que ingresó no se encuentra en la agenda" << std::endl;
+    }
+}
+
+void modificarTelefono(Persona2 agenda[])
+{
+    std::string nombrePersonaABuscar;
+    bool seEncontroPersona = false;
+    int telefonoNuevo;
+
+    std::cout << "Por favor, ingrese el nombre del contacto al que desea modificar su numero de telefono: ";
+    std::cin >> nombrePersonaABuscar;
+
+    std::cout << "Por favor, ingrese el nuevo número de telefono: ";
+    std::cin >> telefonoNuevo;
+
+    for (int i = 0; i < 50; i++)
+    {
+        if (agenda[i].nombre == nombrePersonaABuscar)
+        {
+            seEncontroPersona = true;
+            agenda[i].telefono = telefonoNuevo;
+        }
+    }
+
+    if (seEncontroPersona)
+    {
+        std::cout << "El número de la persona se modificó con exito: " << std::endl;
+    }
+    else
+    {
+        std::cout << "El nombre de la persona que ingresó no se encuentra en la agenda" << std::endl;
+    }
+}
+
+void eliminarContacto(Persona2 agenda[], int &cantidadContactos)
+{
+    std::string nombrePersonaABuscar;
+    bool seEncontroPersona = false;
+
+    std::cout << "Por favor, ingrese el nombre del contacto que quiere eliminar: ";
+    std::cin >> nombrePersonaABuscar;
+
+    for (int i = 0; i < 50; i++)
+    {
+        if (agenda[i].nombre == nombrePersonaABuscar)
+        {
+            seEncontroPersona = true;
+            for (int j = i; j < 50 - 1; j++)
+            {
+                agenda[j] = agenda[j + 1];
+            }
+            std::cout << "Contacto eliminado.\n";
+        }
+    }
+
+    if (seEncontroPersona)
+    {
+        std::cout << "La persona se eliminó de la agenda con exito: " << std::endl;
+        cantidadContactos--;
+    }
+    else
+    {
+        std::cout << "La persona que ingresó no se encuentra en la agenda" << std::endl;
+    }
+}
+
+void cargarAgenda(Persona2 agenda[], int &contactosCargados)
+{
+    agenda[0] = {"Juan", 1001};
+    agenda[1] = {"Ana", 1002};
+    agenda[2] = {"Luis", 1003};
+    agenda[3] = {"Carla", 1004};
+    agenda[4] = {"Pedro", 1005};
+    agenda[5] = {"Laura", 1006};
+    agenda[6] = {"Diego", 1007};
+    agenda[7] = {"Sofía", 1008};
+    agenda[8] = {"Martín", 1009};
+    agenda[9] = {"Lucía", 1010};
+
+    contactosCargados = 10;
+    std::cout << "La agenda fue cargada con 10 contactos " << std::endl;
+}
+
+void agenda()
+{
+    char operacion;
+    Persona2 agenda[50];
+    int cantidadContactos = 0;
+    bool aux = true;
+
+    do
+    {
+
+        std::cout << "Por favor, ingrese una opción: " << "A) Cargar" << std::endl
+                  << "B)Buscar un número de teléfono por nombre " << std::endl
+                  << "C)Buscar el nombre de una persona indicando su teléfono" << std::endl
+                  << "D)Modificar teléfono de persona" << std::endl
+                  << "E)Agregar un contacto" << std::endl
+                  << "F)Eliminar contacto" << std::endl
+                  << "G)Salir" << std::endl;
+        std::cin >> operacion;
+        operacion = std::tolower(operacion);
+
+        switch (operacion)
+        {
+        case 'a':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            cargarAgenda(agenda, cantidadContactos);
+            break;
+        case 'b':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            buscarTelefonoPorNombre(agenda);
+            break;
+        case 'c':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            buscarNombrePorTelefono(agenda);
+            break;
+        case 'd':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            modificarTelefono(agenda);
+            break;
+        case 'e':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            agregarPersonaEnAgenda(cantidadContactos, agenda);
+            break;
+        case 'f':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            eliminarContacto(agenda, cantidadContactos);
+            break;
+        case 'g':
+            std::cout << "Saliendo del menu" << std::endl;
+            aux = false;
+            break;
+        default:
+            std::cout << "Operación no válida." << std::endl;
+        }
+    } while (aux);
+}
+
+void vectorDeLaSumaDeMatriz()
+{
+    int MAX = 10;
+    int m, n, matriz[MAX][MAX], sumaFilas[MAX];
+
+    std::cout << "Ingrese cantidad de filas y columnas: ";
+    std::cin >> m >> n;
+
+    std::cout << "Ingrese la matriz: ";
+    for (int i = 0; i < m; i++)
+    {
+        sumaFilas[i] = 0;
+        for (int j = 0; j < n; j++)
+        {
+            std::cin >> matriz[i][j];
+            sumaFilas[i] += matriz[i][j];
+        }
+    }
+
+    std::cout << "Vector con suma de cada fila: ";
+    for (int i = 0; i < m; i++)
+    {
+        std::cout << sumaFilas[i] << " ";
+    }
+    std::cout << std::endl;
+}
+
+void porcentajesNotasIngles()
+{
+    bool cargarAlumnos = true;
+    int padron, nota;
+    char opcion;
+    int cantidadAlumnos = 0;
+    int notas[11] = {};
+
+    do
+    {
+        std::cout << "Ingrese el número de padrón del alumno: ";
+        std::cin >> padron;
+
+        std::cout << "Ingrese la nota del exámen del alumno (1 a 10): ";
+        std::cin >> nota;
+
+        if (nota < 1 || nota > 10)
+        {
+            std::cout << "Nota inválida. Debe estar entre 1 y 10." << std::endl;
+        }
+
+        std::cout << "[ alumno " << padron << " | nota -> " << nota << " ]" << std::endl;
+
+        cantidadAlumnos++;
+        notas[nota]++;
+
+        std::cout << "¿Desea cargar otro alumno? Ingrese 's' para continuar: ";
+        std::cin >> opcion;
+
+        if (opcion != 's' && opcion != 'S')
+        {
+            cargarAlumnos = false;
+        }
+
+    } while (cargarAlumnos);
+
+    std::cout << "\nCantidad total de alumnos: " << cantidadAlumnos << std::endl;
+
+    for (int i = 1; i <= 10; i++)
+    {
+        if (notas[i] > 0)
+        {
+            double porcentaje = (notas[i] * 100.0) / cantidadAlumnos;
+            std::cout << "Nota " << i << ": " << porcentaje << "% (" << notas[i] << " alumnos)" << std::endl;
+        }
+    }
+}
+
+struct Producto
+{
+    std::string nombre;
+    int codigoBarras;
+    double precio;
+    bool estaEnOferta;
+
+    double obtenerPrecioFinal() const
+    {
+        return estaEnOferta ? precio - (precio * 0.10) : precio;
+    }
+};
+
+void agregarProducto(int &cantidadProductos, Producto gondola[], Producto productoParaAgregar)
+{
+
+    if (cantidadProductos < 50)
+    {
+        std::cout << "No se puede agregar otro producto" << std::endl;
+    }
+    else
+    {
+        gondola[cantidadProductos] = productoParaAgregar;
+        std::cout << "Se cargo el producto :" <<" [ " << productoParaAgregar.nombre << " | " << productoParaAgregar.codigoBarras << " | $" << productoParaAgregar.precio << " | Estado oferta: " << productoParaAgregar.estaEnOferta << " ]" << std::endl;
+        cantidadProductos++;
+    }
+}
+
+int buscarProductoPorNombre(Producto gondola[], std::string nombreDeProductoABuscar,int cantidadProductos)
+{
+    for (int i = 0; i < cantidadProductos; i++)
+    {
+        if (gondola[i].nombre == nombreDeProductoABuscar)
+        {
+            return i;
+        }
+    }
+    return -1;
+}
+
+void buscarProductoPorCodigoDeBarra(Producto gondola[],int cantidadProductos)
+{
+
+    int codigoDeBarrasIngresado;
+    bool seEncontroProducto = false;
+    Producto producto;
+
+    std::cout << "Por favor, ingrese el codigo de barra del producto que desea buscar: ";
+    std::cin >> codigoDeBarrasIngresado;
+
+    for (int i = 0; i < cantidadProductos; i++)
+    {
+        if (gondola[i].codigoBarras == codigoDeBarrasIngresado)
+        {
+            seEncontroProducto = true;
+            producto = gondola[i];
+        }
+    }
+
+    if (seEncontroProducto)
+    {
+        std::cout << "El producto que deseaba encontrar es: [ " << producto.nombre << " | " << producto.codigoBarras << " | $" << producto.precio << " | Estado oferta: " << producto.estaEnOferta << " ]" << std::endl;
+    }
+    else
+    {
+        std::cout << "El producto que esta intentando buscar no se encuentra en la gondola" << std::endl;
+    }
+}
+
+void modificarPrecioDeProducto(Producto gondola[],int cantidadProductos)
+{
+    std::string nombreProductoABuscar;
+    bool seEncontroProducto = false;
+    double precioNuevo;
+
+    std::cout << "Por favor, ingrese el nombre del producto al que desea modificar su precio: ";
+    std::cin >> nombreProductoABuscar;
+
+    std::cout << "Por favor, ingrese el nuevo precio del producto: ";
+    std::cin >> precioNuevo;
+
+    for (int i = 0; i < cantidadProductos; i++)
+    {
+        if (gondola[i].nombre == nombreProductoABuscar)
+        {
+            seEncontroProducto = true;
+            gondola[i].precio = precioNuevo;
+        }
+    }
+
+    if (seEncontroProducto)
+    {
+        std::cout << "El precio del producto se modificó con exito: " << std::endl;
+    }
+    else
+    {
+        std::cout << "El nombre del producto que ingresó no se encuentra en la gondola" << std::endl;
+    }
+}
+
+void quitarProducto(Producto gondola[], int &cantidadProductos)
+{
+    std::string nombreProductoABuscar;
+    bool seEncontroProducto = false;
+
+    std::cout << "Por favor, ingrese el nombre del producto que quiere eliminar: ";
+    std::cin >> nombreProductoABuscar;
+
+    for (int i = 0; i < cantidadProductos; i++)
+    {
+        if (gondola[i].nombre == nombreProductoABuscar)
+        {
+            seEncontroProducto = true;
+            for (int j = i; j < cantidadProductos - 1; j++)
+            {
+                gondola[j] = gondola[j + 1];
+            }
+        }
+    }
+
+    if (seEncontroProducto)
+    {
+        std::cout << "El producto se eliminó de la gondola con éxito: " << std::endl;
+        cantidadProductos--;
+    }
+    else
+    {
+        std::cout << "El producto que ingresó no se encuentra en la gondola" << std::endl;
+    }
+}
+
+int cuantosProductosHayEnOferta(Producto gondola[], int &cantidadProductos)
+{
+    int cantidadProductosEnOferta = 0;
+
+    for (int i = 0; i < cantidadProductos; i++)
+    {
+        if (gondola[i].estaEnOferta)
+        {
+            cantidadProductosEnOferta++;
+        }
+    }
+
+    return cantidadProductosEnOferta;
+}
+
+void cargarProductosAlChango(Producto gondola[])
+{
+    char operacion;
+    bool aux = true;
+    Producto chango[50];
+    int productosEnChango = 0;
+    std::string nombreProductoACargar;
+    int precioSinDescuento = 0;
+    int precioConDescuento = 0;
+    do
+    {
+        std::cout << "Si desea cargar un producto presione 's', de lo contrario presione 'n': " << std::endl;
+        std::cin >> operacion;
+        operacion = std::tolower(operacion);
+
+        if (operacion == 's')
+        {
+            std::cout << "Ingrese el nombre del producto que quiere cargar al chango: " << std::endl;
+            std::cin >> nombreProductoACargar;
+
+            int posProductoParaAgregar = buscarProductoPorNombre(gondola, nombreProductoACargar,productosEnChango);
+            if (posProductoParaAgregar > -2 && posProductoParaAgregar < 50)
+            {
+                agregarProducto(productosEnChango, chango,gondola[posProductoParaAgregar]);
+            }
+            else
+            {
+                std::cout << "No se pudo cargar el producto al chango: " << std::endl;
+            }
+        }
+        else if (operacion == 'n')
+        {
+            aux = false;
+            for (int i = 0; i < productosEnChango; i++)
+            {
+                precioConDescuento += chango[i].obtenerPrecioFinal();
+                precioSinDescuento += chango[i].precio;
+            }
+
+            std::cout << "El precio total sin descuentos es: " << precioSinDescuento << std::endl;
+            std::cout << "El precio total con descuentos es: " << precioConDescuento << std::endl;
+            std::cout << "Ahorro en total: " << precioSinDescuento - precioConDescuento << std::endl;
+        }
+        else
+        {
+            std::cout << "Operación no válida." << std::endl;
+        }
+
+    } while (aux);
+}
+
+void gondola()
+{
+    char operacion;
+    Producto gondola[50];
+    int cantidadProductos = 0;
+    bool aux = true;
+
+    do
+    {
+
+        std::cout << "Por favor, ingrese una opción: " << std::endl
+                  << "A) Cargar productos en el vector. " << std::endl
+                  << "B) Buscar un producto indicando su nombre.  " << std::endl
+                  << "C) Buscar un producto por código de barra. " << std::endl
+                  << "D) Poder modificar el precio de algún producto." << std::endl
+                  << "E) Quitar un producto que esté en el vector. " << std::endl
+                  << "F) Indicar la cantidad de productos en oferta." << std::endl
+                  << "G) Cargar productos de Gondola en un nuevo vector Chango, indicando luego: monto a abonar y ahorro total teniendo en cuenta los productos en oferta." << std::endl
+                  << "H) Salir." << std::endl;
+        std::cin >> operacion;
+        operacion = std::tolower(operacion);
+
+        switch (operacion)
+        {
+        case 'a':
+        {
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+
+            Producto productoParaAgregar;
+            std::string nombreProducto;
+            int precioProducto;
+            int codigoBarrasProducto;
+            bool estaEnOferta = false;
+            char aux;
+
+            std::cout << "Por favor, ingrese el nombre del producto que desea agregar: ";
+            std::cin >> nombreProducto;
+            std::cout << "Por favor, ingrese el precio del producto que desea agregar: ";
+            std::cin >> precioProducto;
+            std::cout << "Por favor, ingrese el código de barras del producto que desea agregar: ";
+            std::cin >> codigoBarrasProducto;
+            std::cout << "Indicar con una 's' si el producto esta de oferta, de lo contrario presione cualquier otra tecla: ";
+            std::cin >> aux;
+
+            aux = std::tolower(aux);
+
+            if (aux == 's')
+            {
+                estaEnOferta = true;
+            }
+
+            productoParaAgregar.nombre = nombreProducto;
+            productoParaAgregar.precio = precioProducto;
+            productoParaAgregar.codigoBarras = codigoBarrasProducto;
+            productoParaAgregar.estaEnOferta = estaEnOferta;
+
+            agregarProducto(cantidadProductos, gondola, productoParaAgregar);
+            break;
+        }
+        case 'b':
+        {
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            std::string nombreDeProductoABuscar;
+            std::cout << "Por favor, ingrese el nombre del producto que desea buscar: ";
+            std::cin >> nombreDeProductoABuscar;
+            int pos = buscarProductoPorNombre(gondola, nombreDeProductoABuscar,cantidadProductos);
+            if (pos != -1)
+            {
+                std::cout << "Producto: " << gondola[pos].nombre << " | " << gondola[pos].precio << std::endl;
+            }
+            else
+            {
+                std::cout << "Producto no encontrado." << std::endl;
+            }
+            break;
+        }
+        case 'c':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            buscarProductoPorCodigoDeBarra(gondola,cantidadProductos);
+            break;
+        case 'd':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            modificarPrecioDeProducto(gondola, cantidadProductos);
+            break;
+        case 'e':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            quitarProducto(gondola, cantidadProductos);
+            break;
+        case 'f':
+            std::cout << "La opción que usted eligió es " << operacion << std::endl;
+            std::cout << "Los productos que estan en oferta son: " << cuantosProductosHayEnOferta(gondola, cantidadProductos) << std::endl;
+            break;
+        case 'g':
+            std::cout << "Cargar productos al chango" << operacion << std::endl;
+            cargarProductosAlChango(gondola);
+            break;
+        case 'h':
+            std::cout << "Saliendo del menu" << std::endl;
+            aux = false;
+            break;
+        default:
+            std::cout << "Operación no válida." << std::endl;
+        }
+    } while (aux);
+}
+
 // ---------------------- main --------------------
 int main()
 {
@@ -868,9 +1626,9 @@ int main()
 
     saludarPersona(); */
 
-    std::cout << "4) Dado el radio R de una esfera que se solicita por teclado, calcular e imprimir su superficie y su volumen. " << std::endl;
+    /* std::cout << "4) Dado el radio R de una esfera que se solicita por teclado, calcular e imprimir su superficie y su volumen. " << std::endl;
 
-    superficieYVolumenDeRadio();
+    superficieYVolumenDeRadio(); */
 
     /* std::cout <<"5) Leer la base y la altura de un rectángulo, calcular el perímetro y la superficie. Estructuras selectivas " << std::endl;
 
@@ -948,8 +1706,6 @@ int main()
 
     tablaCelsiusFahrenheit(); */
 
-    std::cout << "23) Leer N y luego N lotes de números reales que terminan con un valor 0, y calcular la media individual de cada lote, junto con la media total de todos los números ingresados. " << std::endl;
-
     /* std::cout << "24) Hacer una función que, dado los coeficientes de un polinomio de segundo grado (3 números reales), indique si tiene o no raíces reales, devolviendo un valor booleano. " << std::endl;
 
     std::cout << std::boolalpha << elPolinomioTieneRaices() << std::endl; */
@@ -966,9 +1722,9 @@ int main()
 
     esPrimo(); */
 
-    std::cout << "28) Escribir una función que devuelva el máximo común divisor y el mínimo común múltiplo entre dos enteros. Nota: cuidado al modularizar (recordar que una función solo tiene que realizar una tarea).  " << std::endl;
+    /* std::cout << "28) Escribir una función que devuelva el máximo común divisor y el mínimo común múltiplo entre dos enteros. Nota: cuidado al modularizar (recordar que una función solo tiene que realizar una tarea).  " << std::endl;
 
-    mcdYmcmEntreDosNumeros(10,12);
+    mcdYmcmEntreDosNumeros(10,12); */
 
     // ------------------------------------ Vectores ----------------------------------------------------------------
 
@@ -980,33 +1736,50 @@ int main()
 
     operacionesConVectores({3, 4}, {1, 2}); */
 
-    std::cout << "31) Por cada alumno que rindió un examen de inglés se lee el número de padrón, y la nota obtenida. Se desea saber la cantidad de alumnos que rindieron el examen y el porcentaje de alumnos que obtuvieron cada nota. " << std::endl;
+    /* std::cout << "31) Por cada alumno que rindió un examen de inglés se lee el número de padrón, y la nota obtenida. Se desea saber la cantidad de alumnos que rindieron el examen y el porcentaje de alumnos que obtuvieron cada nota. " << std::endl;
+
+    porcentajesNotasIngles(); */
 
     /* std::cout << "32) Se carga un vector X de N elementos enteros. Escribir un algoritmo que devuelva un vector que tenga todos los elementos de X, pero sin elementos repetidos. " << std::endl;
 
     vectorSinRepetidos({1, 2, 2, 3, 4, 4, 5, 1}); */
 
-    std::cout << "33) Se leen dos vectores A y B, de N y M elementos respectivamente. Construir un algoritmo que halle los vectores unión e intersección de A y B. Previamente habrá que ordenarlos. " << std::endl;
+    /* std::cout << " 34) Si los números de un vector representan los coeficientes de un polinomio (de grado no mayor a 10), escribir un algoritmo que calcule la especialización de ese polinomio con un número que elige el usuario. " << std::endl;
 
-    interseccionYUnionDeDosVectores();
+    especializacionDePolinomio(); */
 
-    std::cout << " 34) Si los números de un vector representan los coeficientes de un polinomio (de grado no mayor a 10), escribir un algoritmo que calcule la especialización de ese polinomio con un número que elige el usuario. " << std::endl;
+    /* std::cout << "35) Escribir un algoritmo que halle una matriz C como suma de dos matrices A y B. La dimensión de las matrices de M × N se lee como dato (suponer un MAX para fila y columna). " << std::endl;
 
-    std::cout << "35) Escribir un algoritmo que halle una matriz C como suma de dos matrices A y B. La dimensión de las matrices de M × N se lee como dato (suponer un MAX para fila y columna). " << std::endl;
-    std::cout << "36) Escribir un algoritmo que halle un vector cuyos elementos son la suma de los elementos de cada fila de una matriz previamente ingresada. " << std::endl;
-    std::cout << "37) Escribir un programa que calcule la traza de una matriz cuadrada. Recordar que la traza de una matriz es la suma de los elementos de su diagonal principal. " << std::endl;
-    std::cout << "38) Escribir un algoritmo que determine si una matriz cuadrada ingresada es la matriz identidad. Optimizar el código. " << std::endl;
-    std::cout << "39) Escribir un algoritmo que construya un vector con los valores mínimos de cada una de las filas de una matriz. " << std::endl;
+    sumaMatrizAYB(); */
+
+    /* std::cout << "36) Escribir un algoritmo que halle un vector cuyos elementos son la suma de los elementos de cada fila de una matriz previamente ingresada. " << std::endl;
+
+    vectorDeLaSumaDeMatriz(); */
+
+    /* std::cout << "37) Escribir un programa que calcule la traza de una matriz cuadrada. Recordar que la traza de una matriz es la suma de los elementos de su diagonal principal. " << std::endl;
+
+    trazaMatriz(); */
+
+    /* std::cout << "38) Escribir un algoritmo que determine si una matriz cuadrada ingresada es la matriz identidad. Optimizar el código. " << std::endl;
+
+    esMatrizIdentidadCuadrada(); */
+
+    /* std::cout << "39) Escribir un algoritmo que construya un vector con los valores mínimos de cada una de las filas de una matriz. " << std::endl;
+
+    vectorCreadoConMinimos(); */
 
     //-------------------------------------Registros y Tablas--------------------------------
 
     /* std::cout << "40) Definir un struct Persona, donde se pueda almacenar su nombre, y el número de teléfono. "<< std::endl;
     generarPersona(); */
 
-    std::cout << "41) Definir un vector Agenda, en donde se pueda guardar los datos de, a lo sumo, 50 personas (definidas en el ej. anterior) y permita: a. Cargar los datos en la Agenda. b. Poder buscar el teléfono de una persona indicando su nombre. c. Poder buscar el nombre de una persona indicando su teléfono. d. Poder modificar el número de teléfono de alguna persona. e. Poder agregar un nuevo contacto. f. Poder dar de baja a un contacto. " << std::endl;
+    /* std::cout << "41) Definir un vector Agenda, en donde se pueda guardar los datos de, a lo sumo, 50 personas (definidas en el ej. anterior) y permita: a. Cargar los datos en la Agenda. b. Poder buscar el teléfono de una persona indicando su nombre. c. Poder buscar el nombre de una persona indicando su teléfono. d. Poder modificar el número de teléfono de alguna persona. e. Poder agregar un nuevo contacto. f. Poder dar de baja a un contacto. " << std::endl;
 
-    std::cout << "" << std::endl;
-    std::cout << "" << std::endl;
+    agenda(); */
+
+    std::cout << "42) Definir un vector Gondola en donde puedan almacenar datos de a lo sumo 50 productos del supermercado. Cada producto se define por su nombre, código de barras, precio y un indicador si está en oferta o no (si estuviera en oferta al precio se le debe descontar un 10%). La aplicación debe permitir mediante un menú de opciones: a. Cargar productos en el vector. b. Buscar un producto indicando su nombre. c. Buscar un producto por código de barra. d. Poder modificar el precio de algún producto. e. Quitar un producto que esté en el vector. f. Indicar la cantidad de productos en oferta. g. Cargar productos de Gondola en un nuevo vector Chango, indicando luego: monto a abonar y ahorro total teniendo en cuenta los productos en oferta." << std::endl;
+
+    gondola();
 
     return 0;
 }
