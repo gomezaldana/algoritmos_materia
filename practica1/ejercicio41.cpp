@@ -1,12 +1,41 @@
 #include <iostream>
 #include <vector>
 
-// creo persona con struct
-struct Persona
+class Persona
 {
+private:
     std::string nombre;
     int telefono;
+
+public:
+    // constructor
+    Persona(std::string _nombre, int _telefono)
+    {
+        nombre = _nombre;
+        telefono = _telefono;
+    }
+
+    // constructor por defecto
+    Persona()
+    {
+        nombre = "";
+        telefono = 0;
+    }
+
+    void mostrar() const
+    {
+        std::cout << "Nombre: " << nombre << " - Teléfono: " << telefono << std::endl;
+    }
+
+    // getter
+    std::string getNombre() const { return nombre; }
+    int getTelefono() const { return telefono; }
+
+    // setter
+    void setNombre(std::string nuevoNombre) { nombre = nuevoNombre; }
+    void setTelefono(int nuevoTelefono) { telefono = nuevoTelefono; }
 };
+
 
 void agregarPersonaEnAgenda(int &contactosCargados, Persona agenda[])
 {
@@ -19,8 +48,7 @@ void agregarPersonaEnAgenda(int &contactosCargados, Persona agenda[])
     std::cout << "Por favor, ingrese el número de teléfono del contacto que desea agregar: ";
     std::cin >> telefonoPersona;
 
-    personaParaAgregar.nombre = nombrePersona;
-    personaParaAgregar.telefono = telefonoPersona;
+    personaParaAgregar = Persona(nombrePersona, telefonoPersona);
 
     if (contactosCargados > 50)
     {
@@ -29,7 +57,9 @@ void agregarPersonaEnAgenda(int &contactosCargados, Persona agenda[])
     else
     {
         agenda[contactosCargados] = personaParaAgregar;
-        std::cout << "Se cargo la persona '" << personaParaAgregar.nombre << "' a la agenda con exito" << std::endl;
+        std::cout << "Se cargo la persona ";
+        personaParaAgregar.mostrar();
+        std::cout << " a la agenda con exito" << std::endl;
         contactosCargados++;
     }
 }
@@ -45,10 +75,10 @@ void buscarTelefonoPorNombre(Persona agenda[])
 
     for (int i = 0; i < 50; i++)
     {
-        if (agenda[i].nombre == nombrePersonaABuscar)
+        if (agenda[i].getNombre() == nombrePersonaABuscar)
         {
             seEncontroPersona = true;
-            telefonoPersona = agenda[i].telefono;
+            telefonoPersona = agenda[i].getTelefono();
         }
     }
 
@@ -73,10 +103,10 @@ void buscarNombrePorTelefono(Persona agenda[])
 
     for (int i = 0; i < 50; i++)
     {
-        if (agenda[i].telefono == telefonoPersona)
+        if (agenda[i].getTelefono() == telefonoPersona)
         {
             seEncontroPersona = true;
-            nombrePersonaAEncontrar = agenda[i].nombre;
+            nombrePersonaAEncontrar = agenda[i].getNombre();
         }
     }
 
@@ -104,10 +134,10 @@ void modificarTelefono(Persona agenda[])
 
     for (int i = 0; i < 50; i++)
     {
-        if (agenda[i].nombre == nombrePersonaABuscar)
+        if (agenda[i].getNombre() == nombrePersonaABuscar)
         {
             seEncontroPersona = true;
-            agenda[i].telefono = telefonoNuevo;
+            agenda[i].setTelefono(telefonoNuevo) ;
         }
     }
 
@@ -131,7 +161,7 @@ void eliminarContacto(Persona agenda[], int &cantidadContactos)
 
     for (int i = 0; i < 50; i++)
     {
-        if (agenda[i].nombre == nombrePersonaABuscar)
+        if (agenda[i].getNombre() == nombrePersonaABuscar)
         {
             seEncontroPersona = true;
             for (int j = i; j < 50 - 1; j++)

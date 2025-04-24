@@ -1,14 +1,51 @@
 #include <iostream>
 #include <vector>
 
-
-struct Producto
+class Producto
 {
+private:
     std::string nombre;
     int codigoBarras;
     double precio;
     bool estaEnOferta;
 
+public:
+    // constructor
+    Producto(std::string _nombre, int _codigoBarras, double _precio, bool _estaEnOferta)
+    {
+        nombre = _nombre;
+        codigoBarras = _codigoBarras;
+        precio = _precio;
+        estaEnOferta = _estaEnOferta;
+    }
+
+    // constructor por defecto
+    Producto()
+    {
+        nombre = "";
+        codigoBarras = 0;
+        precio = 0;
+        estaEnOferta = false;
+    }
+
+    void mostrar() const
+    {
+        std::cout << "Nombre: " << nombre << " - Codigo de Barras: " << codigoBarras << " - Precio: $" << precio << " - Estado oferta: " << estaEnOferta << std::endl;
+    }
+
+    // getter
+    std::string getNombre() const { return nombre; }
+    int getCodigoBarras() const { return codigoBarras; }
+    double getPrecio() const { return precio; }
+    bool getEstaEnOferta() const { return estaEnOferta; }
+
+    // setter
+    void setNombre(std::string nuevoNombre) { nombre = nuevoNombre; }
+    void setCodigoBarras(int nuevoCodigoBarras) { codigoBarras = nuevoCodigoBarras; }
+    void setPrecio(int nuevoPrecio) { precio = nuevoPrecio; }
+    void setEstaEnOferta(int nuevoEstaEnOferta) { estaEnOferta = nuevoEstaEnOferta; }
+
+    // metodos
     double obtenerPrecioFinal() const
     {
         return estaEnOferta ? precio - (precio * 0.10) : precio;
@@ -18,23 +55,24 @@ struct Producto
 void agregarProducto(int &cantidadProductos, Producto gondola[], Producto productoParaAgregar)
 {
 
-    if (cantidadProductos < 50)
+    if (cantidadProductos >= 50)
     {
         std::cout << "No se puede agregar otro producto" << std::endl;
     }
     else
     {
         gondola[cantidadProductos] = productoParaAgregar;
-        std::cout << "Se cargo el producto :" <<" [ " << productoParaAgregar.nombre << " | " << productoParaAgregar.codigoBarras << " | $" << productoParaAgregar.precio << " | Estado oferta: " << productoParaAgregar.estaEnOferta << " ]" << std::endl;
+        std::cout << "Se cargo el producto :";
+        productoParaAgregar.mostrar();
         cantidadProductos++;
     }
 }
 
-int buscarProductoPorNombre(Producto gondola[], std::string nombreDeProductoABuscar,int cantidadProductos)
+int buscarProductoPorNombre(Producto gondola[], std::string nombreDeProductoABuscar, int cantidadProductos)
 {
     for (int i = 0; i < cantidadProductos; i++)
     {
-        if (gondola[i].nombre == nombreDeProductoABuscar)
+        if (gondola[i].getNombre() == nombreDeProductoABuscar)
         {
             return i;
         }
@@ -42,7 +80,7 @@ int buscarProductoPorNombre(Producto gondola[], std::string nombreDeProductoABus
     return -1;
 }
 
-void buscarProductoPorCodigoDeBarra(Producto gondola[],int cantidadProductos)
+void buscarProductoPorCodigoDeBarra(Producto gondola[], int cantidadProductos)
 {
 
     int codigoDeBarrasIngresado;
@@ -54,16 +92,20 @@ void buscarProductoPorCodigoDeBarra(Producto gondola[],int cantidadProductos)
 
     for (int i = 0; i < cantidadProductos; i++)
     {
-        if (gondola[i].codigoBarras == codigoDeBarrasIngresado)
+        if (gondola[i].getCodigoBarras() == codigoDeBarrasIngresado)
         {
             seEncontroProducto = true;
-            producto = gondola[i];
+            producto.setPrecio(gondola[i].getPrecio());
+            producto.setCodigoBarras(gondola[i].getCodigoBarras());
+            producto.setNombre(gondola[i].getNombre());
+            producto.setEstaEnOferta(gondola[i].getEstaEnOferta());
         }
     }
 
     if (seEncontroProducto)
     {
-        std::cout << "El producto que deseaba encontrar es: [ " << producto.nombre << " | " << producto.codigoBarras << " | $" << producto.precio << " | Estado oferta: " << producto.estaEnOferta << " ]" << std::endl;
+        std::cout << "El producto que deseaba encontrar es:  ";
+        producto.mostrar();
     }
     else
     {
@@ -71,7 +113,7 @@ void buscarProductoPorCodigoDeBarra(Producto gondola[],int cantidadProductos)
     }
 }
 
-void modificarPrecioDeProducto(Producto gondola[],int cantidadProductos)
+void modificarPrecioDeProducto(Producto gondola[], int cantidadProductos)
 {
     std::string nombreProductoABuscar;
     bool seEncontroProducto = false;
@@ -85,10 +127,10 @@ void modificarPrecioDeProducto(Producto gondola[],int cantidadProductos)
 
     for (int i = 0; i < cantidadProductos; i++)
     {
-        if (gondola[i].nombre == nombreProductoABuscar)
+        if (gondola[i].getNombre() == nombreProductoABuscar)
         {
             seEncontroProducto = true;
-            gondola[i].precio = precioNuevo;
+            gondola[i].setPrecio(precioNuevo);
         }
     }
 
@@ -112,7 +154,7 @@ void quitarProducto(Producto gondola[], int &cantidadProductos)
 
     for (int i = 0; i < cantidadProductos; i++)
     {
-        if (gondola[i].nombre == nombreProductoABuscar)
+        if (gondola[i].getNombre() == nombreProductoABuscar)
         {
             seEncontroProducto = true;
             for (int j = i; j < cantidadProductos - 1; j++)
@@ -139,7 +181,7 @@ int cuantosProductosHayEnOferta(Producto gondola[], int &cantidadProductos)
 
     for (int i = 0; i < cantidadProductos; i++)
     {
-        if (gondola[i].estaEnOferta)
+        if (gondola[i].getEstaEnOferta())
         {
             cantidadProductosEnOferta++;
         }
@@ -168,10 +210,10 @@ void cargarProductosAlChango(Producto gondola[])
             std::cout << "Ingrese el nombre del producto que quiere cargar al chango: " << std::endl;
             std::cin >> nombreProductoACargar;
 
-            int posProductoParaAgregar = buscarProductoPorNombre(gondola, nombreProductoACargar,productosEnChango);
+            int posProductoParaAgregar = buscarProductoPorNombre(gondola, nombreProductoACargar, 50 );
             if (posProductoParaAgregar > -2 && posProductoParaAgregar < 50)
             {
-                agregarProducto(productosEnChango, chango,gondola[posProductoParaAgregar]);
+                agregarProducto(productosEnChango, chango, gondola[posProductoParaAgregar]);
             }
             else
             {
@@ -184,7 +226,7 @@ void cargarProductosAlChango(Producto gondola[])
             for (int i = 0; i < productosEnChango; i++)
             {
                 precioConDescuento += chango[i].obtenerPrecioFinal();
-                precioSinDescuento += chango[i].precio;
+                precioSinDescuento += chango[i].getPrecio();
             }
 
             std::cout << "El precio total sin descuentos es: " << precioSinDescuento << std::endl;
@@ -250,10 +292,10 @@ void gondola()
                 estaEnOferta = true;
             }
 
-            productoParaAgregar.nombre = nombreProducto;
-            productoParaAgregar.precio = precioProducto;
-            productoParaAgregar.codigoBarras = codigoBarrasProducto;
-            productoParaAgregar.estaEnOferta = estaEnOferta;
+            productoParaAgregar.setNombre(nombreProducto);
+            productoParaAgregar.setPrecio(precioProducto);
+            productoParaAgregar.setCodigoBarras(codigoBarrasProducto);
+            productoParaAgregar.setEstaEnOferta(estaEnOferta);
 
             agregarProducto(cantidadProductos, gondola, productoParaAgregar);
             break;
@@ -264,10 +306,11 @@ void gondola()
             std::string nombreDeProductoABuscar;
             std::cout << "Por favor, ingrese el nombre del producto que desea buscar: ";
             std::cin >> nombreDeProductoABuscar;
-            int pos = buscarProductoPorNombre(gondola, nombreDeProductoABuscar,cantidadProductos);
+            int pos = buscarProductoPorNombre(gondola, nombreDeProductoABuscar, cantidadProductos);
             if (pos != -1)
             {
-                std::cout << "Producto: " << gondola[pos].nombre << " | " << gondola[pos].precio << std::endl;
+                std::cout << "Producto: ";
+                gondola[pos].mostrar();
             }
             else
             {
@@ -277,7 +320,7 @@ void gondola()
         }
         case 'c':
             std::cout << "La opción que usted eligió es " << operacion << std::endl;
-            buscarProductoPorCodigoDeBarra(gondola,cantidadProductos);
+            buscarProductoPorCodigoDeBarra(gondola, cantidadProductos);
             break;
         case 'd':
             std::cout << "La opción que usted eligió es " << operacion << std::endl;
@@ -307,12 +350,10 @@ void gondola()
 
 int main()
 {
-    
+
     std::cout << "42) Definir un vector Gondola en donde puedan almacenar datos de a lo sumo 50 productos del supermercado. Cada producto se define por su nombre, código de barras, precio y un indicador si está en oferta o no (si estuviera en oferta al precio se le debe descontar un 10%). La aplicación debe permitir mediante un menú de opciones: a. Cargar productos en el vector. b. Buscar un producto indicando su nombre. c. Buscar un producto por código de barra. d. Poder modificar el precio de algún producto. e. Quitar un producto que esté en el vector. f. Indicar la cantidad de productos en oferta. g. Cargar productos de Gondola en un nuevo vector Chango, indicando luego: monto a abonar y ahorro total teniendo en cuenta los productos en oferta." << std::endl;
 
     gondola();
 
     return 0;
 }
-
-
